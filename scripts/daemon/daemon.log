@@ -1,0 +1,45 @@
+2012-04-09T15:53:05+02:00 | 7767 | Daemon\Process\ForkMaster | forked queueManager pid: 7768
+2012-04-09T15:53:05+02:00 | 7767 | Daemon\Process\ForkMaster | forked worker pid: 7769
+2012-04-09T15:53:05+02:00 | 7767 | Daemon\Process\ForkMaster | forked worker pid: 7770
+2012-04-09T15:53:05+02:00 | 7768 | Daemon\Process\QueueManager | registered worker with address worker/4f82e9c10cf3e
+2012-04-09T15:53:05+02:00 | 7768 | Daemon\Process\QueueManager | registered worker with address worker/4f82e9c10d12e
+2012-04-09T16:16:33+02:00 | 7862 | Daemon\Process\ForkMaster | forked queueManager pid: 7866
+2012-04-09T16:16:33+02:00 | 7862 | Daemon\Process\ForkMaster | forked worker pid: 7867
+2012-04-09T16:16:33+02:00 | 7862 | Daemon\Process\ForkMaster | forked worker pid: 7868
+2012-04-09T16:16:33+02:00 | 7866 | Daemon\Process\QueueManager | registered worker with address worker/4f82ef418b174
+2012-04-09T16:16:33+02:00 | 7866 | Daemon\Process\QueueManager | registered worker with address worker/4f82ef418b2a7
+2012-04-09T16:19:59+02:00 | 7898 | Daemon\Process\ForkMaster | forked queueManager pid: 7902
+2012-04-09T16:19:59+02:00 | 7898 | Daemon\Process\ForkMaster | forked worker pid: 7903
+2012-04-09T16:19:59+02:00 | 7898 | Daemon\Process\ForkMaster | forked worker pid: 7904
+2012-04-09T16:19:59+02:00 | 7902 | Daemon\Process\QueueManager | registered worker with address worker/4f82f00f947d0
+2012-04-09T16:19:59+02:00 | 7902 | Daemon\Process\QueueManager | registered worker with address worker/4f82f00f94b61
+2012-04-09T16:21:54+02:00 | 7898 | Daemon\Process\ForkMaster | received signal 15 initiate shutdown
+2012-04-09T16:21:54+02:00 | 7898 | Daemon\Process\ForkMaster | sent shutdown message to queueManager
+2012-04-09T16:21:54+02:00 | 7902 | Daemon\Process\QueueManager | sent shutdown message to worker with address worker/4f82f00f947d0
+2012-04-09T16:21:54+02:00 | 7902 | Daemon\Process\QueueManager | sent shutdown message to worker with address worker/4f82f00f94b61
+2012-04-09T16:21:54+02:00 | 7903 | Daemon\Process\Worker | received shutdown message
+2012-04-09T16:21:54+02:00 | 7904 | Daemon\Process\Worker | received shutdown message
+2012-04-09T16:21:54+02:00 | 7902 | Daemon\Process\QueueManager | removed worker with address worker/4f82f00f947d0, because of a regular shutdown
+2012-04-09T16:21:54+02:00 | 7902 | Daemon\Process\QueueManager | still 1 workers registered
+2012-04-09T16:21:54+02:00 | 7902 | Daemon\Process\QueueManager | removed worker with address worker/4f82f00f94b61, because of a regular shutdown
+2012-04-09T16:21:54+02:00 | 7902 | Daemon\Process\QueueManager | still 0 workers registered
+2012-04-09T16:21:54+02:00 | 7898 | Daemon\Process\ForkMaster | all childs killed. exit
+2012-04-09T16:22:01+02:00 | 7862 | Daemon\Process\ForkMaster | received signal 15 initiate shutdown
+2012-04-09T16:22:01+02:00 | 7862 | Daemon\Process\ForkMaster | sent shutdown message to queueManager
+2012-04-09T16:22:19+02:00 | 7862 | Daemon\Process\ForkMaster | all childs killed. exit
+2012-04-09T16:23:45+02:00 | 7939 | Daemon\Process\ForkMaster | forked queueManager pid: 7940
+2012-04-09T16:23:45+02:00 | 7939 | Daemon\Process\ForkMaster | forked worker pid: 7941
+2012-04-09T16:23:45+02:00 | 7939 | Daemon\Process\ForkMaster | forked worker pid: 7942
+2012-04-09T16:23:45+02:00 | 7940 | Daemon\Process\QueueManager | registered worker with address worker/4f82f0f1956ee
+2012-04-09T16:23:45+02:00 | 7940 | Daemon\Process\QueueManager | registered worker with address worker/4f82f0f1957c1
+2012-04-09T16:25:52+02:00 | 7939 | Daemon\Process\ForkMaster | received signal 15 initiate shutdown
+2012-04-09T16:25:52+02:00 | 7939 | Daemon\Process\ForkMaster | sent shutdown message to queueManager
+2012-04-09T16:25:52+02:00 | 7940 | Daemon\Process\QueueManager | sent shutdown message to worker with address worker/4f82f0f1956ee
+2012-04-09T16:25:52+02:00 | 7940 | Daemon\Process\QueueManager | sent shutdown message to worker with address worker/4f82f0f1957c1
+2012-04-09T16:25:52+02:00 | 7941 | Daemon\Process\Worker | received shutdown message
+2012-04-09T16:25:52+02:00 | 7942 | Daemon\Process\Worker | received shutdown message
+2012-04-09T16:25:52+02:00 | 7940 | Daemon\Process\QueueManager | removed worker with address worker/4f82f0f1956ee, because of a regular shutdown
+2012-04-09T16:25:52+02:00 | 7940 | Daemon\Process\QueueManager | still 1 workers registered
+2012-04-09T16:25:52+02:00 | 7940 | Daemon\Process\QueueManager | removed worker with address worker/4f82f0f1957c1, because of a regular shutdown
+2012-04-09T16:25:52+02:00 | 7940 | Daemon\Process\QueueManager | still 0 workers registered
+2012-04-09T16:25:52+02:00 | 7939 | Daemon\Process\ForkMaster | all childs killed. exit

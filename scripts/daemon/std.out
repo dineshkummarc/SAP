@@ -1,0 +1,13 @@
+
+Warning: unlink(/tmp/sap-daemon.pid): No such file or directory in /Users/peaceman/Development/web/StreamersAdminPanel/library/Daemon/Process/ForkMaster.php on line 129
+
+Call Stack:
+    0.0019     657808   1. {main}() /Users/peaceman/Development/web/StreamersAdminPanel/scripts/daemon/init.php:0
+    0.0233    1100184   2. Daemon\Process\AbstractProcess->__construct() /Users/peaceman/Development/web/StreamersAdminPanel/scripts/daemon/init.php:45
+    0.0233    1100184   3. Daemon\Process\AbstractProcess->_initStdio() /Users/peaceman/Development/web/StreamersAdminPanel/library/Daemon/Process/AbstractProcess.php:22
+    0.0236    1100408   4. Daemon\Process\ForkMaster->_init() /Users/peaceman/Development/web/StreamersAdminPanel/library/Daemon/Process/AbstractProcess.php:48
+    0.0282    1102552   5. Daemon\Process\ForkMaster->_monitorChildProcesses() /Users/peaceman/Development/web/StreamersAdminPanel/library/Daemon/Process/ForkMaster.php:19
+  328.0398    1105840   6. Daemon\Process\ForkMaster->signalHandler() /Users/peaceman/Development/web/StreamersAdminPanel/library/Daemon/Process/ForkMaster.php:89
+  328.0402    1105840   7. Daemon\Process\ForkMaster->_initShutdown() /Users/peaceman/Development/web/StreamersAdminPanel/library/Daemon/Process/ForkMaster.php:103
+  345.6660    1268608   8. unlink() /Users/peaceman/Development/web/StreamersAdminPanel/library/Daemon/Process/ForkMaster.php:129
+
