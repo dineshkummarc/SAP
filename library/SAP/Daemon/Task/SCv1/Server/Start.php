@@ -17,9 +17,19 @@ class Start extends Task\AbstractSynchronousTask
 			throw new \InvalidArgumentException('no or invalid server_identifier given');
 		}
 
-		if (!isset($this->_data['server_config']) || !is_array($this->_data['server_config'])) {
+		if (!isset($this->_data['server_config_file'])
+			&& (!isset($this->_data['server_config'])
+			|| !is_array($this->_data['server_config'])))
+		{
 			$this->_maxTries = 0;
 			throw new \InvalidArgumentException('no or invalid server_config given');
+		}
+
+		if (isset($this->_data['server_config_file'])
+			&& !file_exists($this->_data['server_config_file']))
+		{
+			$this->_maxTries = 0;
+			throw new \InvalidArgumentException(sprintf('server configuration file %s doesnt exist', $this->_data['server_config_file']));
 		}
 	}
 
@@ -34,7 +44,10 @@ class Start extends Task\AbstractSynchronousTask
 			return;
 		}
 
-		$this->_updateServerConfigurationFile();
+		if (!isset($this->_data['server_config_file'])) {
+			$this->_updateServerConfigurationFile();
+		}
+
 		$this->_startServerWithConfigurationFile();
 	}
 

@@ -20,6 +20,7 @@ abstract class AbstractProcess
 	{
 		$this->_config = $configuration;
 		$this->_initStdio();
+		$this->_init();
 	}
 
 	protected function _initStdio()
@@ -44,8 +45,6 @@ abstract class AbstractProcess
 		$STDIN = fopen('/dev/null', 'r');
 		$STDOUT = fopen($stdoutFile, 'ab');
 		$STDERR = fopen($stdoutFile, 'ab');
-
-		$this->_init();
 	}
 
 	/**

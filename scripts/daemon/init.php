@@ -35,12 +35,17 @@ $autoloader->suppressNotFoundWarnings(true);
 $config = require 'config.php';
 $config = new \Daemon\Config($config);
 
-$pidFile = $config->get('pid_file');
-if (file_exists($pidFile) && '' != exec('ps -p `cat ' . $pidFile . '` --no-heading')) {
-	trigger_error('Process running with PID ' . file_get_contents($pidFile), E_USER_NOTICE);
-	exit(0);
-}
-
-file_put_contents($pidFile, getmypid());
-
 new \Daemon\Process\ForkMaster($config);
+
+$context = new ZMQContext();
+$socket = $context->getSocket(ZMQ::SOCKET_DEALER);
+$socket->setSockOpt(\ZMQ::SOCKOPT_IDENTITY, uniqid());
+$socket->connect($config->get('sockets.queueManager'));
+
+$message = new \Daemon\Message\Task\Add(array(
+	'task' => new \SAP\Daemon\Task\SCv1\InitialStart(),
+));
+
+$zmsg = new \ZMQ\Zmsg($socket);
+$zmsg->body_set(serialize($message));
+$zmsg->send();

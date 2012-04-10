@@ -16,9 +16,19 @@ class Start extends Task\AbstractSynchronousTask
 			throw new \InvalidArgumentException('no or invalid transcoder_identifier given');
 		}
 
-		if (!isset($this->_data['transcoder_config']) || !is_array($this->_data['transcoder_config'])) {
+		if (!isset($this->_data['transcoder_config_file'])
+			&& (!isset($this->_data['transcoder_config'])
+			|| !is_array($this->_data['transcoder_config'])))
+		{
 			$this->_maxTries = 0;
 			throw new \InvalidArgumentException('no or invalid transcoder_config given');
+		}
+
+		if (isset($this->_data['transcoder_config_file'])
+			&& !file_exists($this->_data['transcoder_config_file']))
+		{
+			$this->_maxTries = 0;
+			throw new \InvalidArgumentException(sprintf('transcoder configuration file %s doesnt exist', $this->_data['transcoder_config_file']));
 		}
 	}
 
@@ -33,7 +43,10 @@ class Start extends Task\AbstractSynchronousTask
 			return;
 		}
 
-		$this->_updateTranscoderConfigurationFile();
+		if (!isset($this->_data['transcoder_config_file'])) {
+			$this->_updateTranscoderConfigurationFile();
+		}
+
 		$this->_startTranscoderWithConfigurationFile();
 	}
 
@@ -117,6 +130,7 @@ class Start extends Task\AbstractSynchronousTask
 			'result' => $result,
 			'output' => $output,
 		));
+		file_put_contents('/tmp/abc', $shellCommand, FILE_APPEND);
 	}
 
 	/**

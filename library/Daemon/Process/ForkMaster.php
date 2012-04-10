@@ -15,6 +15,19 @@ class ForkMaster extends AbstractProcess
 
 	protected function _init()
 	{
+		$pid = pcntl_fork();
+		if ($pid !== 0) {
+			return;
+		}
+
+		$pidFile = $this->_config->get('pid_file');
+		if (file_exists($pidFile) && '' != exec('ps -p `cat ' . $pidFile . '` --no-heading')) {
+			trigger_error('Process running with PID ' . file_get_contents($pidFile), E_USER_NOTICE);
+			exit(0);
+		}
+
+		file_put_contents($pidFile, getmypid());
+
 		setproctitle('Daemon: ForkMaster');
 		$this->_forkChilds();
 		$this->_monitorChildProcesses();
