@@ -1,29 +1,29 @@
 <?php
 /**
  * User: peaceman
- * Date: 4/9/12
- * Time: 5:52 PM
+ * Date: 4/10/12
+ * Time: 9:15 PM
  */
-namespace SAP\Daemon\Task\SCv1;
+namespace SAP\Daemon\Task\SCv1\Transcoder;
 use Daemon\Task;
 
 class Stop extends Task\AbstractSynchronousTask
 {
 	protected function _init()
 	{
-		if (!isset($this->_data['server_identifier'])) {
+		if (!isset($this->_data['transcoder_identifier'])) {
 			$this->_maxTries = 0;
-			throw new \InvalidArgumentException('no or invalid server_identifier given');
+			throw new \InvalidArgumentException('no or invalid transcoder_identifier given');
 		}
 	}
 
 	protected function _run()
 	{
-		$pid = $this->_getPidForServer();
+		$pid = $this->_getPidForTranscoder();
 		if ($pid === null || !$this->_isProcessWithPidRunning($pid)) {
 			$this->_setResult(array(
 				'success' => false,
-				'message' => 'Server is not running',
+				'message' => 'Transcoder is not running',
 			));
 			return;
 		}
@@ -38,7 +38,7 @@ class Stop extends Task\AbstractSynchronousTask
 	/**
 	 * @return int|null
 	 */
-	protected function _getPidForServer()
+	protected function _getPidForTranscoder()
 	{
 		$pathToPidFile = $this->_getPathToPidFile();
 		if (!file_exists($pathToPidFile)) {
@@ -54,7 +54,7 @@ class Stop extends Task\AbstractSynchronousTask
 	 */
 	protected function _getPathToPidFile()
 	{
-		return realpath(APPLICATION_PATH . '/../pids') . '/' . $this->_data['server_identifier'] . '.pid';
+		return realpath(APPLICATION_PATH . '/../pids') . '/' . $this->_data['transcoder_identifier'] . '.pid';
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Stop extends Task\AbstractSynchronousTask
 	}
 
 	/**
-	 * @param $pid
+	 * @param int $pid
 	 * @throws \InvalidArgumentException
 	 */
 	protected function _stopServer($pid)
@@ -88,3 +88,4 @@ class Stop extends Task\AbstractSynchronousTask
 		unlink($this->_getPathToPidFile());
 	}
 }
+ 

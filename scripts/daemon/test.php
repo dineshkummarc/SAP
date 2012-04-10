@@ -42,6 +42,28 @@ $autoloader->suppressNotFoundWarnings(true);
 $config = require 'config.php';
 $config = new \Daemon\Config($config);
 
+$transcoderConfig = array(
+	'PlaylistFile' => '/home/trollpanel/lol.lst',
+	'ServerIP' => '127.0.0.1',
+	'ServerPort' => 8000,
+	'Password' => 'lulz',
+	'StreamTitle' => 'My Gay Son',
+	'StreamURL' => 'http://mygayson.com',
+	'Genre' => 'allmighty foolord',
+	'LogFile' => 'sc_trans.log',
+	'Shuffle' => 1,
+	'Bitrate' => 128000,
+	'SampleRate' => 44100,
+	'Channels' => 2,
+	'Quality' => 1,
+	'CrossfadeLength' => 8000,
+	'UseID3' => 0,
+	'Public' => 1,
+	'AIM' => null,
+	'ICQ' => null,
+	'IRC' => null,
+);
+
 $serverConfig = array(
 	'MaxUser' => 10,
 	'Password' => 'lulz',
@@ -57,26 +79,40 @@ $socket = $context->getSocket(ZMQ::SOCKET_DEALER);
 $socket->setSockOpt(\ZMQ::SOCKOPT_IDENTITY, uniqid());
 $socket->connect($config->get('sockets.queueManager'));
 
+$messages = array();
+
 if ($mode === 'start') {
-	$msg = new \Daemon\Message\Task\Add(array(
-		'task' => new \SAP\Daemon\Task\SCv1\Start(array(
+	$messages[] = new \Daemon\Message\Task\Add(array(
+		'task' => new \SAP\Daemon\Task\SCv1\Transcoder\Start(array(
+			'transcoder_config' => $transcoderConfig,
+			'transcoder_identifier' => 'sc_trans-1',
+		)),
+	));
+	$messages[] = new \Daemon\Message\Task\Add(array(
+		'task' => new \SAP\Daemon\Task\SCv1\Server\Start(array(
 			'server_config' => $serverConfig,
-			'server_identifier' => 1,
+			'server_identifier' => 'sc_serv-1',
 		)),
 	));
 } elseif ($mode === 'stop') {
-	$msg = new \Daemon\Message\Task\Add(array(
-		'task' => new \SAP\Daemon\Task\SCv1\Stop(array(
-			'server_identifier' => 1,
+	$messages[] = new \Daemon\Message\Task\Add(array(
+		'task' => new \SAP\Daemon\Task\SCv1\Transcoder\Stop(array(
+			'transcoder_identifier' => 'sc_trans-1',
+		)),
+	));
+	$messages[] = new \Daemon\Message\Task\Add(array(
+		'task' => new \SAP\Daemon\Task\SCv1\Server\Stop(array(
+			'server_identifier' => 'sc_serv-1',
 		)),
 	));
 }
 
-
 $zmsg = new \ZMQ\Zmsg($socket);
-$zmsg->body_set(serialize($msg));
-$zmsg->send();
+foreach ($messages as $message) {
+	$zmsg->body_set(serialize($message));
+	$zmsg->send();
 
-$zmsg->recv();
-$response = unserialize($zmsg->body());
-var_dump($response);
+	$zmsg->recv();
+	$response = unserialize($zmsg->body());
+	var_dump($response);
+}

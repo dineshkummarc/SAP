@@ -5,7 +5,7 @@
  * Time: 5:52 PM
  */
 
-namespace SAP\Daemon\Task\SCv1;
+namespace SAP\Daemon\Task\SCv1\Server;
 use Daemon\Task;
 
 class Start extends Task\AbstractSynchronousTask
@@ -69,8 +69,8 @@ class Start extends Task\AbstractSynchronousTask
 	protected function _updateServerConfigurationFile()
 	{
 		$config = $this->_data['server_config'];
-		$configWriter = new \Zend_Config_Writer_Ini();
-		$configWriter->setRenderWithoutSections(true);
+
+		$configWriter = new \SAP\Config\Writer\ScTrans();
 
 		$config = new \Zend_Config($config);
 		$configWriter->write($this->_getServerConfigurationFilePath(), $config);
