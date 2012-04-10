@@ -4,7 +4,9 @@
  * Date: 4/9/12
  * Time: 2:33 PM
  */
-namespace Daemon\MessageHandler\Task; use Daemon\MessageHandler, Daemon\Message\Task;
+namespace Daemon\MessageHandler\Task;
+use Daemon\MessageHandler,
+	Daemon\Message\Task;
 
 class Finished extends MessageHandler\AbstractMessageHandler
 {

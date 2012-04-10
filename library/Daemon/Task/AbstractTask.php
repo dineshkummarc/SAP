@@ -4,7 +4,8 @@
  * Date: 4/9/12
  * Time: 1:57 PM
  */
-namespace Daemon\Task; use Daemon\Message;
+namespace Daemon\Task;
+use Daemon\Message;
 
 abstract class AbstractTask
 {

@@ -4,7 +4,8 @@
  * Date: 4/9/12
  * Time: 12:01 PM
  */
-namespace Daemon\Process; use Daemon\Message;
+namespace Daemon\Process;
+use Daemon\Message;
 
 class ForkMaster extends AbstractProcess
 {

@@ -28,6 +28,7 @@ $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->registerNamespace(array(
 	'Daemon',
 	'ZMQ',
+	'SAP',
 ));
 $autoloader->suppressNotFoundWarnings(true);
 
