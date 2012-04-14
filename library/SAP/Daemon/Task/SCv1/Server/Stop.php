@@ -7,8 +7,13 @@
 namespace SAP\Daemon\Task\SCv1\Server;
 use Daemon\Task;
 
-class Stop extends Task\AbstractSynchronousTask
+class Stop extends Task\AbstractTask
 {
+	/**
+	 * @var bool
+	 */
+	protected $_isSynchronous = true;
+
 	protected function _init()
 	{
 		if (!isset($this->_data['server_identifier'])) {

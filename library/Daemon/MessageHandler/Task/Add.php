@@ -16,8 +16,8 @@ class Add extends MessageHandler\AbstractMessageHandler
 	public function handle()
 	{
 		$task = $this->_message->getTask();
-		if ($task instanceof \Daemon\Task\AbstractSynchronousTask) {
-			/** @var $task \Daemon\Task\AbstractSynchronousTask */
+		if ($task->isSynchronous()) {
+			/** @var $task \Daemon\Task\AbstractTask */
 			$task->setReturnAddress($this->_zmsg->address());
 			$this->log('received synchronous task with return address %s', $this->_zmsg->address());
 		}

@@ -7,8 +7,13 @@
 namespace SAP\Daemon\Task\SCv1\Transcoder;
 use Daemon\Task;
 
-class Stop extends Task\AbstractSynchronousTask
+class Stop extends Task\AbstractTask
 {
+	/**
+	 * @var bool
+	 */
+	protected $_isSynchronous = true;
+
 	protected function _init()
 	{
 		if (!isset($this->_data['transcoder_identifier'])) {
@@ -31,7 +36,7 @@ class Stop extends Task\AbstractSynchronousTask
 		$this->_stopServer($pid);
 		$this->_setResult(array(
 			'success' => true,
-			'message' => 'Successfully stopped server',
+			'message' => 'Successfully stopped transcoder',
 		));
 	}
 

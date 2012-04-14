@@ -23,13 +23,13 @@ class Finished extends MessageHandler\AbstractMessageHandler
 		$this->_queueManager->removeTaskFromInWorkTasks($task);
 		$this->_queueManager->flagWorkerAsAvailable($workerAddress);
 
-		if ($task instanceof \Daemon\Task\AbstractSynchronousTask) {
-			/** @var $task \Daemon\Task\AbstractSynchronousTask */
+		if ($task->isSynchronous()) {
+			/** @var $task \Daemon\Task\AbstractTask */
 			$this->_handleSynchronousTask($task);
 		}
 	}
 
-	protected function _handleSynchronousTask(\Daemon\Task\AbstractSynchronousTask $task)
+	protected function _handleSynchronousTask(\Daemon\Task\AbstractTask $task)
 	{
 		$returnAddress = $task->getReturnAddress();
 		$result = $task->getResult();

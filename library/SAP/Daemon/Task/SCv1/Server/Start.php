@@ -8,8 +8,13 @@
 namespace SAP\Daemon\Task\SCv1\Server;
 use Daemon\Task;
 
-class Start extends Task\AbstractSynchronousTask
+class Start extends Task\AbstractTask
 {
+	/**
+	 * @var bool
+	 */
+	protected $_isSynchronous = true;
+
 	protected function _init()
 	{
 		if (!isset($this->_data['server_identifier'])) {

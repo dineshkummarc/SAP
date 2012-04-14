@@ -40,12 +40,33 @@ abstract class AbstractTask
 	protected $_identifier;
 
 	/**
-	 * @param array|null $data
+	 * @var array
 	 */
-	final public function __construct(array $data = null)
+	protected $_result;
+
+	/**
+	 * @var string
+	 */
+	protected $_returnAddress;
+
+	/**
+	 * @var bool
+	 */
+	protected $_isSynchronous = false;
+
+	/**
+	 * @param array|null $data
+	 * @param bool|null $synchronous
+	 */
+	final public function __construct(array $data = null, $synchronous = null)
 	{
 		$this->_identifier = uniqid();
 		$this->_data = $data;
+
+		if ($synchronous !== null) {
+			$this->_isSynchronous = $synchronous;
+		}
+
 		$this->_init();
 	}
 
@@ -101,5 +122,50 @@ abstract class AbstractTask
 	public function getIdentifier()
 	{
 		return $this->_identifier;
+	}
+
+	/**
+	 * @return array
+	 * @throws \RuntimeException
+	 */
+	public function getResult()
+	{
+		if ($this->_result === null) {
+			throw new \RuntimeException('result is null');
+		}
+
+		return $this->_result;
+	}
+
+	/**
+	 * @param array $data
+	 */
+	protected function _setResult(array $data)
+	{
+		$this->_result = $data;
+	}
+
+	/**
+	 * @param string $returnAddress
+	 */
+	public function setReturnAddress($returnAddress)
+	{
+		$this->_returnAddress = $returnAddress;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getReturnAddress()
+	{
+		return $this->_returnAddress;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isSynchronous()
+	{
+		return $this->_isSynchronous;
 	}
 }

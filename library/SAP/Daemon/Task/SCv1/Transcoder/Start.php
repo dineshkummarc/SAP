@@ -7,8 +7,13 @@
 namespace SAP\Daemon\Task\SCv1\Transcoder;
 use Daemon\Task;
 
-class Start extends Task\AbstractSynchronousTask
+class Start extends Task\AbstractTask
 {
+	/**
+	 * @var bool
+	 */
+	protected $_isSynchronous = true;
+
 	protected function _init()
 	{
 		if (!isset($this->_data['transcoder_identifier'])) {
@@ -48,6 +53,10 @@ class Start extends Task\AbstractSynchronousTask
 		}
 
 		$this->_startTranscoderWithConfigurationFile();
+		$this->_setResult(array(
+			'success' => true,
+			'message' => 'Successfully started transcoder',
+		));
 	}
 
 	/**

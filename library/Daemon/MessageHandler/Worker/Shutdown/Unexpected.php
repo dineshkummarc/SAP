@@ -23,14 +23,14 @@ class Unexpected extends MessageHandler\AbstractMessageHandler
 		if ($task->canTry()) {
 			$this->_queueManager->addNewTask($task);
 		} else {
-			if ($task instanceof \Daemon\Task\AbstractSynchronousTask) {
-				/** @var $task \Daemon\Task\AbstractSynchronousTask */
+			if ($task->isSynchronous()) {
+				/** @var $task \Daemon\Task\AbstractTask */
 				$this->_handleSynchronousTask($task);
 			}
 		}
 	}
 
-	protected function _handleSynchronousTask(\Daemon\Task\AbstractSynchronousTask $task)
+	protected function _handleSynchronousTask(\Daemon\Task\AbstractTask $task)
 	{
 		$returnAddress = $task->getReturnAddress();
 		$this->_queueManager->sendMessageTo($returnAddress, $this->_message);
