@@ -25,7 +25,7 @@ class InitialStart extends Task\AbstractTask
 				'task' => new \SAP\Daemon\Task\SCv1\Server\Start(array(
 					'server_identifier' => $serverIdentifier,
 					'server_config_file' => $configurationFile,
-				)),
+				), false),
 			));
 
 			$this->_messagesToQueueManager[] = $startServerMessage;
@@ -62,7 +62,7 @@ class InitialStart extends Task\AbstractTask
 				'task' => new \SAP\Daemon\Task\SCv1\Transcoder\Start(array(
 					'transcoder_identifier' => $transcoderIdentifier,
 					'transcoder_config_file' => $configurationFile,
-				)),
+				), false),
 			));
 
 			$this->_messagesToQueueManager[] = $startTranscoderMessage;
