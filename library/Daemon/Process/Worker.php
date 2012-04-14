@@ -67,51 +67,74 @@ class Worker extends AbstractProcess
 
 	protected function _processingLoop()
 	{
+		$poll = new \ZMQPoll();
+		$poll->add($this->_socketToQueueManager, \ZMQ::POLL_IN);
+		$pollTimeout = $this->_config->get('worker.pollTimeout');
+
 		while (true) {
-			$zmsg = new Zmsg($this->_socketToQueueManager);
-			$zmsg->recv();
+			$readable = $writable = array();
+			$events = $poll->poll($readable, $writable, $pollTimeout);
 
-			$msg = unserialize($zmsg->body());
-			if ($msg instanceof \Daemon\Message\Shutdown) {
-				$this->log('received shutdown message');
-				$this->_initShutdown();
-				return;
-			}
+			if ($events) {
+				foreach ($readable as $socket) {
+					$zmsg = new Zmsg($socket);
+					$zmsg->recv();
 
-			try {
-				/** @var $task \Daemon\Task\AbstractTask */
-				$task = $msg->task;
-				$this->_currentTask = $task;
+					$msg = unserialize($zmsg->body());
+					if ($msg instanceof \Daemon\Message\Shutdown) {
+						$this->log('received shutdown message');
+						$this->_initShutdown();
+						return;
+					}
 
-				$this->log('starting to execute %s', get_class($task));
-				$task->run();
+					try {
+						/** @var $task \Daemon\Task\AbstractTask */
+						$task = $msg->task;
+						$this->_currentTask = $task;
 
-				$this->_currentTask = null;
-				$this->log('execution of %s finished', get_class($task));
+						$this->log('starting to execute %s', get_class($task));
+						$task->run();
 
-				$response = new Message\Task\Finished(array(
-					'task' => $task,
-					'workerAddress' => $this->_identity,
-				));
+						$this->_currentTask = null;
+						$this->log('execution of %s finished', get_class($task));
 
-				$this->_responseToQueueManager($zmsg, $response);
+						$response = new Message\Task\Finished(array(
+							'task' => $task,
+							'workerAddress' => $this->_identity,
+						));
 
-				if ($task->hasMessagesToQueueManager()) {
-					$responseMessages = $task->getMessagesToQueueManager();
-					foreach ($responseMessages as $responseMessage) {
-						$this->_responseToQueueManager($zmsg, $responseMessage);
+						$this->_responseToQueueManager($zmsg, $response);
+
+						if ($task->hasMessagesToQueueManager()) {
+							$responseMessages = $task->getMessagesToQueueManager();
+							foreach ($responseMessages as $responseMessage) {
+								$this->_responseToQueueManager($zmsg, $responseMessage);
+							}
+						}
+					} catch (\Exception $e) {
+						$response = new Message\Task\Failed(array(
+							'task' => $task,
+							'exception' => $e,
+							'workerAddress' => $this->_identity,
+						));
+
+						$this->_responseToQueueManager($zmsg, $response);
 					}
 				}
-			} catch (\Exception $e) {
-				$response = new Message\Task\Failed(array(
-					'task' => $task,
-					'exception' => $e,
-					'workerAddress' => $this->_identity,
-				));
-
-				$this->_responseToQueueManager($zmsg, $response);
 			}
+
+			$this->_sendHeartbeat();
 		}
+	}
+
+	protected function _sendHeartbeat()
+	{
+		$zmsg = new Zmsg($this->_socketToQueueManager);
+		$message = new \Daemon\Message\Worker\Heartbeat(array(
+			'workerAddress' => $this->_identity,
+		));
+
+		$this->_responseToQueueManager($zmsg, $message);
 	}
 
 	protected function _responseToQueueManager(Zmsg $zmsg, Message\AbstractMessage $msg)

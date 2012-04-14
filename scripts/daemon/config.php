@@ -7,6 +7,9 @@ return array(
 	'queueManager' => array(
 		'pollTimeout' => 1000,
 	),
+	'worker' => array(
+		'pollTimeout' => 1000,
+	),
 	'sockets' => array(
 		'queueManager' => 'ipc:///tmp/sap-daemon.ipc',
 	)

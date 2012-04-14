@@ -286,4 +286,13 @@ class QueueManager extends AbstractProcess
 	{
 		$this->_initShutdown();
 	}
+
+	/**
+	 * @param string $workerAddress
+	 * @return bool
+	 */
+	public function isKnownWorker($workerAddress)
+	{
+		return in_array($workerAddress, $this->_registeredWorkers);
+	}
 }
