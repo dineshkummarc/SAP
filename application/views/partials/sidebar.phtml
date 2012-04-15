@@ -1,0 +1,86 @@
+<div id="sidebar">
+	<div id="navigation">
+		<div class="sidenav">
+			<div class="nav_info">
+				<span><?php echo $messages["22"];?> <span
+					class="nav_info_username"><?PHP echo ($loginun);?></span>,</span><br/>
+				<?php
+				if ($user_level == "Super Administrator") {
+					$noticesq = mysql_query("SELECT * FROM notices");
+					if (mysql_num_rows($noticesq) == 0) {
+						echo "<span class=\"nav_info_messages\">" . $messages["23"] . "</span>";
+					} else {
+						$noticesqquant = mysql_num_rows($noticesq);
+						if ($noticesqquant == 1) {
+							echo "<span class=\"nav_info_messages\">" . $messages["24"] . " <b>" . $noticesqquant . "</b> " . $messages["25"] . "</span>";
+						} else {
+							echo "<span class=\"nav_info_messages\">" . $messages["26"] . " <b>" . $noticesqquant . "</b> " . $messages["27"] . " </span>";
+						}
+					}
+				} else {
+					echo "<span class=\"nav_info_messages\">Shoutcast Admin Panel 3 - " . $messages["28"] . "</span>";
+				}
+				?>
+			</div>
+			<div class="navhead_blank">
+				<span><?php echo $messages["29"];?></span>
+				<span><?php echo $messages["30"];?></span>
+			</div>
+			<div class="subnav_child">
+				<ul class="submenu">
+					<li><a href="content.php?include=contact" title=""><?php echo $messages["31"];?></a></li>
+					<li><a href="content.php?include=public" title=""><?php echo $messages["32"];?></a></li>
+					<li><a href="content.php?include=account" title=""><?php echo $messages["33"];?></a></li>
+					<li><a href="content.php?include=server" title=""><?php echo $messages["34"];?></a></li>
+				</ul>
+			</div>
+			<?php if ($setting['os'] == "linux") { ?>
+			<div class="navhead">
+				<span><?php echo $messages["35"];?></span>
+				<span><?php echo $messages["36"];?></span>
+			</div>
+			<div class="subnav">
+				<ul class="submenu">
+					<li><a href="content.php?include=music" title=""><?php echo $messages["37"];?></a></li>
+					<li><a href="content.php?include=autodj" title=""><?php echo $messages["38"];?></a></li>
+				</ul>
+			</div>
+			<?php } ?>
+			<?php if ($user_level == "Super Administrator") { ?>
+			<div class="navhead">
+				<span><?php echo $messages["39"];?></span>
+				<span><?php echo $messages["40"];?></span>
+			</div>
+			<div class="subnav">
+				<ul class="submenu">
+					<li><a href="content.php?include=admserver" title=""><?php echo $messages["41"];?></a></li>
+					<li><a href="content.php?include=admradio" title=""><?php echo $messages["42"];?></a></li>
+					<li><a href="content.php?include=admuser" title=""><?php echo $messages["43"];?></a></li>
+				</ul>
+			</div>
+			<?php } ?>
+			<div class="navhead">
+				<span><?php echo $messages["44"];?></span>
+				<span><?php echo $messages["45"];?></span>
+			</div>
+			<div class="subnav">
+				<table cellspacing="0" cellpadding="0" class="ip_table">
+					<tbody>
+					<tr>
+						<td class="ip_table"><?php echo $messages["46"];?></td>
+						<td class="ip_table_under"><?PHP echo ($_SERVER['REMOTE_ADDR']);?></td>
+					</tr>
+					<tr>
+						<td class="ip_table"><?php echo $messages["47"];?></td>
+						<td class="ip_table_under"><?PHP echo ($_SERVER['SERVER_ADDR']);?></td>
+					</tr>
+					<tr>
+						<td class="ip_table"><?php echo $messages["48"];?></td>
+						<td class="ip_table_under">3.1-public.beta.1</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
