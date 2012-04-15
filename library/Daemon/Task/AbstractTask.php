@@ -55,6 +55,11 @@ abstract class AbstractTask
 	protected $_isSynchronous = false;
 
 	/**
+	 * @var \ZMQContext
+	 */
+	protected $_context;
+
+	/**
 	 * @param array|null $data
 	 * @param bool|null $synchronous
 	 */
@@ -167,5 +172,13 @@ abstract class AbstractTask
 	public function isSynchronous()
 	{
 		return $this->_isSynchronous;
+	}
+
+	/**
+	 * @param \ZMQContext $context
+	 */
+	public function setContext(\ZMQContext $context)
+	{
+		$this->_context = $context;
 	}
 }

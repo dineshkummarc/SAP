@@ -23,6 +23,11 @@ class Worker extends AbstractProcess
 	 */
 	protected $_currentTask;
 
+	/**
+	 * @var \ZMQContext
+	 */
+	protected $_context;
+
 	protected function _init()
 	{
 		$this->_identity = 'worker/' . uniqid();
@@ -47,6 +52,7 @@ class Worker extends AbstractProcess
 		$socket->connect($queueManagerSocket);
 
 		$this->_socketToQueueManager = $socket;
+		$this->_context = $context;
 	}
 
 	protected function _registerAtQueueManager()
@@ -93,6 +99,7 @@ class Worker extends AbstractProcess
 						$this->_currentTask = $task;
 
 						$this->log('starting to execute %s', get_class($task));
+						$task->setContext($this->_context);
 						$task->run();
 
 						$this->_currentTask = null;

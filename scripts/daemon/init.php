@@ -29,6 +29,7 @@ $autoloader->registerNamespace(array(
 	'Daemon',
 	'ZMQ',
 	'SAP',
+	'Requests'
 ));
 $autoloader->suppressNotFoundWarnings(true);
 

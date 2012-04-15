@@ -73,7 +73,5 @@ abstract class AbstractProcess
 	}
 
 	abstract protected function _init();
-
-	abstract protected function _initShutdown();
 }
  
