@@ -29,10 +29,18 @@ class Start extends AbstractTask
 	{
 		$this->_forkDownloader();
 
+		$bindTo = sprintf('ipc:///tmp/downloader-%d.ipc', $this->_data['download_bundle_id']);
 		$socketToDownloader = $this->_context->getSocket(\ZMQ::SOCKET_PAIR);
-		$socketToDownloader->bind(sprintf('ipc:///tmp/downloader-%d.ipc', $this->_data['download_bundle_id']));
+		$socketToDownloader->bind($bindTo);
+		$this->_process->log('bind socket to %s', $bindTo);
+
 		$zmsg = new Zmsg($socketToDownloader);
+		$zmsg->body_set(serialize($this->_data['download_list']));
+		$zmsg->send();
+
 		$zmsg->recv();
+
+		$this->_process->log('received message from downloader');
 
 		/** @var $msg \SAP\Daemon\Message\Download\CheckResult */
 		$msg = unserialize($zmsg->body());
@@ -54,11 +62,10 @@ class Start extends AbstractTask
 
 	protected function _forkDownloader()
 	{
-		$pid = pcntl_fork();
-		if ($pid !== 0) {
-			return;
-		}
-
-		new \SAP\Daemon\Process\Downloader($this->_config, $this->_data['download_bundle_id'], $this->_data['download_list']);
+		$cmdToExec = sprintf('%s %d &',
+			'php downloader.php',
+			$this->_data['download_bundle_id']
+		);
+		shell_exec($cmdToExec);
 	}
 }

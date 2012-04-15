@@ -100,6 +100,8 @@ class Worker extends AbstractProcess
 
 						$this->log('starting to execute %s', get_class($task));
 						$task->setContext($this->_context);
+						$task->setConfig($this->_config);
+						$task->setProcess($this);
 						$task->run();
 
 						$this->_currentTask = null;

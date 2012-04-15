@@ -16,9 +16,14 @@ class UpdateStatus extends AbstractTask
 			throw new \InvalidArgumentException('no or invalid download_id given');
 		}
 
-		if (!isset($this->_data['length'])) {
+		if (!isset($this->_data['already_downloaded'])) {
 			$this->_maxTries = 0;
-			throw new \InvalidArgumentException('no length given');
+			throw new \InvalidArgumentException('no already_downloaded given');
+		}
+
+		if (!isset($this->_data['full_size'])) {
+			$this->_maxTries = 0;
+			throw new \InvalidArgumentException('no full_size given');
 		}
 	}
 

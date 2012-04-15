@@ -60,6 +60,11 @@ abstract class AbstractTask
 	protected $_context;
 
 	/**
+	 * @var \Daemon\Process\Worker
+	 */
+	protected $_process;
+
+	/**
 	 * @param array|null $data
 	 * @param bool|null $synchronous
 	 */
@@ -180,5 +185,10 @@ abstract class AbstractTask
 	public function setContext(\ZMQContext $context)
 	{
 		$this->_context = $context;
+	}
+
+	public function setProcess(\Daemon\Process\Worker $process)
+	{
+		$this->_process = $process;
 	}
 }

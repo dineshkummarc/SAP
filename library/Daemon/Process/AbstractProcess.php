@@ -18,6 +18,10 @@ abstract class AbstractProcess
 	 */
 	public function __construct(\Daemon\Config $configuration)
 	{
+		ini_set('error_reporting', E_ALL | E_STRICT);
+		ini_set('display_errors', 1);
+		ini_set('log_errors', 1);
+		ini_set('error_log', '/home/trollpanel/tp/scripts/daemon/foo.err');
 		$this->_config = $configuration;
 		$this->_initStdio();
 		$this->_init();

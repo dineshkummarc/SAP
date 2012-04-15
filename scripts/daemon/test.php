@@ -15,8 +15,8 @@ if (!function_exists('setproctitle')) {
 function e($v) { echo $v; }
 function el($v) { e($v . PHP_EOL); }
 
-if ($argc < 2 || !in_array($argv[1], array('start', 'stop'))) {
-	el(sprintf('usage: %s start|stop', $argv[0]));
+if ($argc < 2 || !in_array($argv[1], array('start', 'stop', 'download'))) {
+	el(sprintf('usage: %s start|stop|download', $argv[0]));
 	exit(1);
 } else {
 	$mode = $argv[1];
@@ -103,6 +103,19 @@ if ($mode === 'start') {
 	$messages[] = new \Daemon\Message\Task\Add(array(
 		'task' => new \SAP\Daemon\Task\SCv1\Server\Stop(array(
 			'server_identifier' => 'sc_serv-1',
+		)),
+	));
+} elseif ($mode === 'download') {
+	$messages[] = new \Daemon\Message\Task\Add(array(
+		'task' => new \SAP\Daemon\Task\Download\Start(array(
+			'download_bundle_id' => rand(4, 20),
+			'download_list' => array(
+				1 => 'ftp://nc23.de/lol.mp3',
+				2 => 'http://ns2.n2305.com/Episode%2001_%20Compiled%20by%20Datassette.mp3',
+				3 => 'http://ns2.n2305.com/Episode%2003_%20Compiled%20by%20Datassette.mp3',
+				4 => 'http://ns2.n2305.com/Episode%2004_%20Compiled%20by%20Com%20Truise.mp3',
+				5 => 'http://ns2.n2305.com/Episode%2005_%20Compiled%20by%20Abe%20Mangger.mp3',
+			)
 		)),
 	));
 }
