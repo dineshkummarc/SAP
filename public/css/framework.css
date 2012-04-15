@@ -776,7 +776,7 @@ thead tr th {
 		background: #dcdcdc;
 		color: #111;
 	}
-.correct, .error, .notifi, .correct_log, .error_log {
+.correct, .error, .notifi, .correct_log, .error_log, .alert {
 	margin: 12px 20px 2px 12px;
 	padding: 3px 6px;
 	width: 588px;
@@ -789,7 +789,7 @@ thead tr th {
 	text-align:center;
 
 }
-.correct, .correct_log {
+.correct, .correct_log, .alert-success {
 	box-shadow: 3px 3px 5px rgba(164,194,0,0.5);
 	-moz-box-shadow: 3px 3px 5px rgba(164,194,0,0.5);
 	-khtml-box-shadow: 3px 3px 5px rgba(164,194,0,0.5);
@@ -797,7 +797,7 @@ thead tr th {
 	background-image:url(../images/_messages_correct.jpg);
 	background-color: #94B300;
 }
-.error, .error_log {
+.error, .error_log, .alert-error {
 	box-shadow: 3px 3px 5px rgba(194,0,0,0.5);
 	-moz-box-shadow: 3px 3px 5px rgba(194,0,0,0.5);
 	-khtml-box-shadow: 3px 3px 5px rgba(194,0,0,0.5);
@@ -828,7 +828,7 @@ thead tr th {
 	padding: 0;
 	margin: 0;
 }
-.correct h2, .correct a, .correct a:hover, .correct_log h2, .correct_log a, .correct_log a:hover, .error h2, .error a, .error a:hover, .error_log h2, .error_log a, .error_log a:hover, .notifi h2, .notifi a, .notifi a:hover {
+.correct h2, .correct a, .correct a:hover, .correct_log h2, .correct_log a, .correct_log a:hover, .error h2, .error a, .error a:hover, .error_log h2, .error_log a, .error_log a:hover, .notifi h2, .notifi a, .notifi a:hover, .alert {
 	color:#FFF;
 	padding: 5px;
 	letter-spacing: 1px;
