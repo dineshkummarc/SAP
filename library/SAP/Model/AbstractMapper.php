@@ -17,7 +17,7 @@ class AbstractMapper
 	 * @return AbstractMapper
 	 * @throws \Exception
 	 */
-	public function setDbTable(\Zend_Db_Table_Abstract $dbTable)
+	public function setDbTable($dbTable)
 	{
 		if (is_string($dbTable)) {
 			$dbTable = new $dbTable();
@@ -48,15 +48,19 @@ class AbstractMapper
 	 */
 	public function save(\SAP\Model\AbstractModel $model)
 	{
-		$data = $model->toArray();
-
 		if (null === ($id = $model->getId())) {
+			$data = $model->toArray();
 			unset($data['id']);
 			$model->preSave();
-			$this->getDbTable()->insert($data);
+
+			$id = $this->getDbTable()->insert($data);
+			$model->setId($id);
+
 			$model->postSave();
 		} else {
 			$model->preUpdate();
+			$data = $model->toArray();
+
 			$this->getDbTable()->update($data, array('id = ?' => $id));
 			$model->postUpdate();
 		}
@@ -76,7 +80,35 @@ class AbstractMapper
 		$data = $result->current();
 		/** @var $model AbstractModel */
 		$model = new $this->_modelClass();
-		$model->setFromArray($data);
+		$model->setFromArray($data->toArray());
 		return $model;
+	}
+
+	public function delete($where)
+	{
+		return $this->getDbTable()->delete($where);
+	}
+
+	/**
+	 * @param string|null $order
+	 * @param int|null $count
+	 * @param int|null $offset
+	 * @return array
+	 */
+	public function fetchAll($order = null, $count = null, $offset = null)
+	{
+		$result = $this->getDbTable()->fetchAll(null, $order, $count, $offset);
+		$toReturn = array();
+
+		foreach ($result as $row) {
+			/** @var $row \Zend_Db_Table_Row_Abstract */
+			/** @var $tmpModel \SAP\Model\AbstractModel */
+			$tmpModel = new $this->_modelClass;
+			$tmpModel->setFromArray($row->toArray());
+
+			$toReturn[] = $tmpModel;
+		}
+
+		return $toReturn;
 	}
 }

@@ -26,6 +26,8 @@ class AbstractModel
 				$msg = sprintf('Couldnt find method %s on object of type %s', $methodName, get_class($this));
 				throw new \InvalidArgumentException($msg);
 			}
+
+			$this->$methodName($value);
 		}
 	}
 
@@ -47,7 +49,7 @@ class AbstractModel
 		}
 
 		$keyParts = explode($delimiter, $key);
-		return implode('', array_map('ucfirst', $keyParts));
+		return 'set' . implode('', array_map('ucfirst', $keyParts));
 	}
 
 	/**
@@ -90,6 +92,29 @@ class AbstractModel
 	}
 
 	/**
+	 * @param string $name
+	 * @param string|\DateTime $value
+	 * @throws \InvalidArgumentException
+	 * @throws \Exception
+	 */
+	protected function _setDate($name, $value)
+	{
+		if ($value !== null) {
+			if (is_string($value)) {
+				$value = new \DateTime($value);
+			}
+
+			if (!$value instanceof \DateTime) {
+				throw new \InvalidArgumentException('expected a string or a datetime object');
+			}
+
+			$value = $value->format('Y-m-d H:i:s');
+		}
+
+		$this->_set($name, $value);
+	}
+
+	/**
 	 * Returns a value from the internal data structure
 	 *
 	 * Should only be called from get* methods
@@ -100,6 +125,21 @@ class AbstractModel
 	protected function _get($name)
 	{
 		return isset($this->_data[$name]) ? $this->_data[$name] : null;
+	}
+
+	/**
+	 * @param string $name
+	 * @return \DateTime
+	 */
+	protected function _getDate($name)
+	{
+		$value = $this->_get($name);
+		if ($value === null) {
+			return null;
+		}
+
+		$value = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+		return $value !== false ? $value : null;
 	}
 
 	public function preUpdate() {}

@@ -1,6 +1,7 @@
 <?php
 ini_set('error_reporting', E_ALL | E_STRICT);
 ini_set('display_errors', 1);
+
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -23,5 +24,6 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+
 $application->bootstrap()
             ->run();
