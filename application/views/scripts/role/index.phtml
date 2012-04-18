@@ -1,0 +1,32 @@
+<?php
+/**
+ * User: peaceman
+ * Date: 4/18/12
+ * Time: 10:33 PM
+ */
+?>
+<h3>role listing</h3>
+	<a href="<?php echo $this->url(array('controller' => 'role', 'action' => 'create')) ?>">Create role</a>
+<table>
+	<thead>
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>#</th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach ($this->roles as $role): ?>
+		<?php /** @var $role Application_Model_Role */?>
+		<tr>
+			<td><?php echo $this->escape($role->getId()) ?></td>
+			<td><?php echo $this->escape($role->getName()) ?></td>
+			<td>
+				<a href="<?php echo $this->url(array('controller' => 'role', 'action' => 'detail', 'id' => $role->getId())) ?>">Details</a>
+				<a href="<?php echo $this->url(array('controller' => 'role', 'action' => 'edit', 'id' => $role->getId())) ?>">Edit</a>
+				<a href="<?php echo $this->url(array('controller' => 'role', 'action' => 'delete', 'id' => $role->getId())) ?>">Delete</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</tbody>
+</table>
