@@ -101,12 +101,15 @@ class Application_Model_User extends \SAP\Model\AbstractModel
 		$this->setPassword($hashedAndSaltedPassword);
 	}
 
-	public function preUpdate()
+	public function preSave()
 	{
 		if (null === $this->_get('created_at')) {
-			$this->_set('created_at', new \DateTime());
+			$this->_setDate('created_at', new \DateTime());
 		}
+	}
 
+	public function preUpdate()
+	{
 		$this->_setDate('updated_at', new \DateTime());
 	}
 }

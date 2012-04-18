@@ -72,7 +72,7 @@ class UserController extends \SAP\Controller\Action
 			$userMapper->save($userModel);
 
 			$this->getFlashMessenger()->addSuccessMessage(sprintf('created new user with id %d and password %s', $userModel->getId(), $randomPassword));
-			$this->_redirect($this->url('index'), array('exit' => true));
+			$this->_redirect($this->url('list'), array('exit' => true));
 		}
 
 		$this->view->assign('form', $userCreateForm);

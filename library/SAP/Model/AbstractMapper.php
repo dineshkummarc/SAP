@@ -49,9 +49,9 @@ class AbstractMapper
 	public function save(\SAP\Model\AbstractModel $model)
 	{
 		if (null === ($id = $model->getId())) {
+			$model->preSave();
 			$data = $model->toArray();
 			unset($data['id']);
-			$model->preSave();
 
 			$id = $this->getDbTable()->insert($data);
 			$model->setId($id);
