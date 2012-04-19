@@ -60,6 +60,9 @@ class RoleController extends \SAP\Controller\Action
 		$this->view->assign('role', $roleModel);
 	}
 
+	/**
+	 * @return Application_Model_Role
+	 */
 	protected function _getRoleModelFromRequestOrRedirectToListing()
 	{
 		$id = (int)$this->_getParam('id');
@@ -82,5 +85,16 @@ class RoleController extends \SAP\Controller\Action
 			$this->getFlashMessenger()->addSuccessMessage(sprintf('successfully deleted role %s', $roleModel->getName()));
 			$this->_redirect($this->url('index'), array('exit' => true));
 		}
+	}
+
+	public function detailsAction()
+	{
+		$roleModel = $this->_getRoleModelFromRequestOrRedirectToListing();
+		$permissionsByResource = $roleModel->getPermissionsByResource();
+
+		$this->view->assign(array(
+			'role' => $roleModel,
+			'permissionsByResource' => $permissionsByResource,
+		));
 	}
 }

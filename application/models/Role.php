@@ -26,6 +26,9 @@ class Application_Model_Role extends \SAP\Model\AbstractModel
 		return $this->_get('server_id');
 	}
 
+	/**
+	 * @return Application_Model_Resource[]
+	 */
 	public function getPermissionsByResource()
 	{
 		$toReturn = array();

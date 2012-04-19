@@ -1,0 +1,21 @@
+<?php
+/**
+ * User: peaceman
+ * Date: 4/19/12
+ * Time: 9:35 PM
+ */
+?>
+<h3>role details - <?php echo $this->escape($this->role->getName()) ?></h3>
+	<h4>permissions by resource</h4>
+		<?php foreach ($this->permissionsByResource as $permissions): ?>
+			<?php list($singlePermission) = $permissions ?>
+			<?php $resource = $singlePermission->getResource() ?>
+			<h5>resource - <?php echo $this->escape($resource->getName()) ?></h5>
+				<ul>
+					<?php foreach ($permissions as $permission): ?>
+					<li>
+						<?php echo $this->escape($permission->getPermission()) ?>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+		<?php endforeach; ?>
