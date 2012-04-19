@@ -95,9 +95,9 @@ class AbstractMapper
 	 * @param int|null $offset
 	 * @return array
 	 */
-	public function fetchAll($order = null, $count = null, $offset = null)
+	public function fetchAll($where = null, $order = null, $count = null, $offset = null)
 	{
-		$result = $this->getDbTable()->fetchAll(null, $order, $count, $offset);
+		$result = $this->getDbTable()->fetchAll($where, $order, $count, $offset);
 		$toReturn = array();
 
 		foreach ($result as $row) {

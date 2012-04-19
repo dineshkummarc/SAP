@@ -25,4 +25,27 @@ class Application_Model_Role extends \SAP\Model\AbstractModel
 	{
 		return $this->_get('server_id');
 	}
+
+	public function getPermissionsByResource()
+	{
+		$toReturn = array();
+
+		$permissions = $this->_getPermissionMapper()->fetchAll(array('role_id = ?' => $this->getId()), 'resource_id ASC');
+		foreach ($permissions as $permission) {
+			/**  @var $permission Application_Model_Permission*/
+			$toReturn[$permission->getResourceId()][] = $permission;
+		}
+
+		return $toReturn;
+	}
+
+	protected function _getPermissionMapper()
+	{
+		static $permissionsMapper;
+		if ($permissionsMapper === null) {
+			$permissionsMapper = new Application_Model_PermissionMapper();
+		}
+
+		return $permissionsMapper;
+	}
 }

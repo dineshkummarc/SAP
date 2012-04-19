@@ -6,6 +6,9 @@
  */
 class Application_Model_Permission extends \SAP\Model\AbstractModel
 {
+	protected $_resource;
+	protected $_role;
+
 	public function getRoleId()
 	{
 		return $this->_get('role_id');
@@ -34,5 +37,43 @@ class Application_Model_Permission extends \SAP\Model\AbstractModel
 	public function setPermission($permission)
 	{
 		$this->_set('permission', $permission);
+	}
+
+	public function getResource()
+	{
+		if ($this->_resource === null) {
+			$this->_resource = $this->_getResourceMapper()->find($this->getResourceId());
+		}
+
+		return $this->_resource;
+	}
+
+	public function getRole()
+	{
+		if ($this->_role === null) {
+			$this->_role = $this->_getResourceMapper()->find($this->getRoleId());
+		}
+
+		return $this->_role;
+	}
+
+	protected function _getResourceMapper()
+	{
+		static $resourceMapper;
+		if ($resourceMapper === null) {
+			$resourceMapper = new Application_Model_ResourceMapper();
+		}
+
+		return $resourceMapper;
+	}
+
+	protected function _getRoleMapper()
+	{
+		static $roleMapper;
+		if ($roleMapper === null) {
+			$roleMapper = new Application_Model_RoleMapper();
+		}
+
+		return $roleMapper;
 	}
 }
