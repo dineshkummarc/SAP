@@ -2,13 +2,10 @@
 /**
  * User: peaceman
  * Date: 4/19/12
- * Time: 9:52 PM
+ * Time: 10:02 PM
  */
-class Application_Model_Server extends \SAP\Model\AbstractModel
+class Application_Model_ServerSetting extends \SAP\Model\AbstractModel
 {
-	/**
-	 * @var Application_Model_ServerType
-	 */
 	protected $_serverType;
 
 	public function getName()
@@ -21,6 +18,16 @@ class Application_Model_Server extends \SAP\Model\AbstractModel
 		$this->_set('name', $name);
 	}
 
+	public function getDefaultValue()
+	{
+		return $this->_getSerialized('default_value');
+	}
+
+	public function setDefaultValue($value)
+	{
+		$this->_setSerialized('default_value', $value);
+	}
+
 	public function getServerTypeId()
 	{
 		return $this->_get('server_type_id');
@@ -31,9 +38,6 @@ class Application_Model_Server extends \SAP\Model\AbstractModel
 		$this->_set('server_type_id', $serverTypeId);
 	}
 
-	/**
-	 * @return Application_Model_ServerType
-	 */
 	public function getServerType()
 	{
 		if ($this->_serverType === null) {
@@ -43,13 +47,10 @@ class Application_Model_Server extends \SAP\Model\AbstractModel
 		return $this->_serverType;
 	}
 
-	/**
-	 * @return Application_Model_ServerTypeMapper
-	 */
 	protected function _getServerTypeMapper()
 	{
 		static $serverTypeMapper;
-		if ($serverTypeMapper === null) {
+		if ($serverTypeMapper) {
 			$serverTypeMapper = new Application_Model_ServerTypeMapper;
 		}
 

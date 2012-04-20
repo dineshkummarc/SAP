@@ -142,6 +142,16 @@ class AbstractModel
 		return $value !== false ? $value : null;
 	}
 
+	protected function _setSerialized($name, $unserializedData)
+	{
+		$this->_set($name, serialize($unserializedData));
+	}
+
+	protected function _getSerialized($name)
+	{
+		return unserialize($this->_get($name));
+	}
+
 	public function preUpdate() {}
 	public function postUpdate() {}
 	public function preSave() {}
