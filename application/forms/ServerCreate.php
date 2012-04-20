@@ -46,10 +46,4 @@ class Application_Form_ServerCreate extends \SAP\Form
 	{
 		return $this->_serverTypes;
 	}
-
-	public function isValid($data)
-	{
-		$data['server_type_id'] = $this->_model->getServerTypeId();
-		return parent::isValid($data);
-	}
 }

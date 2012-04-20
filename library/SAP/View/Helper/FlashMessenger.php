@@ -41,7 +41,7 @@ class FlashMessenger extends \Zend_View_Helper_Abstract
                         break;
                 }
 
-                $toReturn .= sprintf('<div class="alert %s">%s</div>', $class, $message);
+                $toReturn .= sprintf('<div class="alert %s">%s</div>', $class, $this->view->escape($message));
             }
         }
 

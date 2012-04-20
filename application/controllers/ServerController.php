@@ -44,6 +44,16 @@ class ServerController extends \SAP\Controller\Action
 		));
 	}
 
+	public function deleteAction()
+	{
+		$serverModel = $this->_getServerModelFromRequestOrRedirectToListing();
+		$deleted = $this->_getServerMapper()->delete(array('id = ?' => $serverModel->getId()));
+		if ($deleted) {
+			$this->getFlashMessenger()->addSuccessMessage(sprintf('successfully deleted server %s', $serverModel->getName()));
+			$this->_redirect($this->url('index'), array('exit' => true));
+		}
+	}
+
 	public function indexAction()
 	{
 		$servers = $this->_getServerMapper()->fetchAll();
