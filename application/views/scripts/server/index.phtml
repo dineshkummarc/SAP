@@ -1,0 +1,34 @@
+<?php
+/**
+ * User: peaceman
+ * Date: 4/20/12
+ * Time: 9:30 PM
+ */
+?>
+<h3>Server list</h3>
+	<a href="<?php echo $this->url(array('controller' => 'server', 'action' => 'create')) ?>">Create server</a>
+	<table>
+		<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Type</th>
+			<th>#</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($this->servers as $server): ?>
+			<?php /** @var $server Application_Model_Server */ ?>
+			<tr>
+				<td><?php echo $this->escape($server->getId()) ?></td>
+				<td><?php echo $this->escape($server->getName()) ?></td>
+				<td><?php echo $this->escape($server->getServerType()->getName()) ?></td>
+				<td>
+					<a href="<?php echo $this->url(array('controller' => 'server', 'action' => 'details', 'id' => $server->getId())) ?>">Details</a>
+					<a href="<?php echo $this->url(array('controller' => 'server', 'action' => 'edit', 'id' => $server->getId())) ?>">Edit</a>
+					<a href="<?php echo $this->url(array('controller' => 'server', 'action' => 'delete', 'id' => $server->getId())) ?>">Delete</a>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+		</tbody>
+	</table>
