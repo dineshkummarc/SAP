@@ -8,7 +8,7 @@ class Application_Form_RoleCreate extends \SAP\Form
 {
 	public function init()
 	{
-		$nameField = new Zend_Form_Element_Text('name');
+		$nameField = new \SAP\Form\Element\Text('name');
 		$nameField->setLabel('Name')
 			->setRequired(true)
 			->setAllowEmpty(false)

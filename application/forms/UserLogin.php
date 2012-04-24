@@ -9,7 +9,7 @@ class Application_Form_UserLogin extends Zend_Form
 {
 	public function init()
 	{
-		$usernameField = new Zend_Form_Element_Text('username');
+		$usernameField = new \SAP\Form\Element\Text('username');
 		$usernameField->setLabel('Username')
 			->setRequired(true)
 			->setAllowEmpty(false)

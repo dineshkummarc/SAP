@@ -27,27 +27,27 @@ class Application_Form_ServerSettings extends \SAP\Form
 
 		switch ($name) {
 			case 'MaxUser':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Int(), true)
 					->addValidator(new Zend_Validate_GreaterThan(0));
 				break;
 			case 'Password':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Alnum(false));
 				break;
 			case 'PortBase':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Int(), true)
 					->addValidator(new Zend_Validate_GreaterThan(1024));
 				break;
 			case 'ShowLastSongs':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Int(), true)
@@ -55,13 +55,13 @@ class Application_Form_ServerSettings extends \SAP\Form
 					->addValidator(new Zend_Validate_LessThan(21));
 				break;
 			case 'SrcIP':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Callback(array($this, 'validateIpOrAny')));
 				break;
 			case 'AdminPassword':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Alnum(false));
@@ -72,23 +72,23 @@ class Application_Form_ServerSettings extends \SAP\Form
 					->setAllowEmpty(false);
 				break;
 			case 'AutoDumpSourceTime':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Int())
 					->addValidator(new Zend_Validate_GreaterThan(0));
 				break;
 			case 'IntroFile':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				break;
 			case 'BackupFile':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				break;
 			case 'TitleFormat':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				break;
 			case 'URLFormat':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				break;
 			case 'PublicServer':
 				$element = new Zend_Form_Element_Select($name);
@@ -111,7 +111,7 @@ class Application_Form_ServerSettings extends \SAP\Form
 					->setAllowEmpty(false);
 				break;
 			case 'MetaInterval':
-				$element = new Zend_Form_Element_Text($name);
+				$element = new \SAP\Form\Element\Text($name);
 				$element->setRequired(true)
 					->setAllowEmpty(false)
 					->addValidator(new Zend_Validate_Int());

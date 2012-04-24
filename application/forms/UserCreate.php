@@ -10,7 +10,7 @@ class Application_Form_UserCreate extends \SAP\Form
 	{
 		$exclude = $this->_model !== null ? array('field' => 'id', 'value' => $this->_model->getId()) : null;
 
-		$usernameField = new Zend_Form_Element_Text('username');
+		$usernameField = new \SAP\Form\Element\Text('username');
 		$usernameField->setLabel('Username')
 			->setRequired(true)
 			->setAllowEmpty(false)
@@ -19,7 +19,7 @@ class Application_Form_UserCreate extends \SAP\Form
 			->addValidator(new Zend_Validate_Db_NoRecordExists(array('table' => 'user', 'field' => 'username', 'exclude' => $exclude)))
 			->setValue($this->_model !== null ? $this->_model->getUsername() : null);
 
-		$emailField = new Zend_Form_Element_Text('email');
+		$emailField = new \SAP\Form\Element\Text('email');
 		$emailField->setLabel('Email')
 			->setRequired(true)
 			->setAllowEmpty(true)

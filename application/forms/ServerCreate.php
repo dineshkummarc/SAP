@@ -13,37 +13,21 @@ class Application_Form_ServerCreate extends \SAP\Form
 
 	public function init()
 	{
-		$nameField = new Zend_Form_Element_Text('name');
+		$nameField = new \SAP\Form\Element\Text('name');
 		$nameField->setLabel('Name')
 			->setDescription('fucking servername')
-			->setAttrib('class', 'mediumfield')
 			->setRequired(true)
 			->setAllowEmpty(false)
 			->addValidator(new Zend_Validate_StringLength(array('max' => 64)))
-			->setValue($this->_model !== null ? $this->_model->getName() : null)
-			->setDecorators(array(
-				new Zend_Form_Decorator_ViewHelper(),
-				new Zend_Form_Decorator_Errors(),
-				new Zend_Form_Decorator_Description(array('tag' => 'span', 'class' => 'field_desc')),
-				new Zend_Form_Decorator_Label(),
-				new Zend_Form_Decorator_HtmlTag(array('class' => 'input_field')),
-			));
+			->setValue($this->_model !== null ? $this->_model->getName() : null);
 
-		$typeField = new Zend_Form_Element_Select('server_type_id');
+		$typeField = new \SAP\Form\Element\Select('server_type_id');
 		$typeField->setLabel('Server Type')
-			->setAttrib('class', 'formselect_loca')
 			->setDescription('fucking server type')
 			->setRequired(true)
 			->setAllowEmpty(false)
 			->setMultiOptions($this->getServerTypes())
-			->setValue($this->_model !== null ? $this->_model->getServerTypeId() : null)
-			->setDecorators(array(
-				new Zend_Form_Decorator_ViewHelper(),
-				new Zend_Form_Decorator_Errors(),
-				new Zend_Form_Decorator_Description(array('tag' => 'span', 'class' => 'field_desc')),
-				new Zend_Form_Decorator_Label(),
-				new Zend_Form_Decorator_HtmlTag(array('class' => 'input_field')),
-			));
+			->setValue($this->_model !== null ? $this->_model->getServerTypeId() : null);
 
 		$submitButton = new Zend_Form_Element_Submit('submit');
 		$submitButton->setLabel('Create server');

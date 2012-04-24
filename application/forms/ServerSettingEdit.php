@@ -13,7 +13,7 @@ class Application_Form_ServerSettingEdit extends \SAP\Form
 
 	public function init()
 	{
-		$defaultValueField = new Zend_Form_Element_Text('default_value');
+		$defaultValueField = new \SAP\Form\Element\Text('default_value');
 		$defaultValueField->setLabel('Default value')
 			->setValue($this->_model->getDefaultValue());
 
