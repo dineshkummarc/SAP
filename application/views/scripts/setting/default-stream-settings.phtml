@@ -1,0 +1,37 @@
+<?php
+/**
+ * User: peaceman
+ * Date: 4/24/12
+ * Time: 10:34 PM
+ */
+?>
+<h3>list default stream settings</h3>
+	<table>
+		<thead>
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>value</th>
+			<th>#</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($this->settings as $setting): ?>
+		<?php /* @var $setting Application_Model_ServerSetting */ ?>
+			<tr>
+				<td>
+					<?php echo $this->escape($setting->getId()) ?>
+				</td>
+				<td>
+					<?php echo $this->escape($setting->getName()) ?>
+				</td>
+				<td>
+					<?php echo $this->escape($setting->getDefaultValue()) ?>
+				</td>
+				<td>
+					<a href="<?php echo $this->url(array('controller' => 'setting', 'action' => 'edit-default-stream-setting', 'id' => $setting->getId())) ?>">edit</a>
+				</td>
+			</tr>
+		<?php endforeach ?>
+		</tbody>
+	</table>
