@@ -28,20 +28,20 @@ class FlashMessenger extends \Zend_View_Helper_Abstract
             foreach ($messages as $message) {
                 switch ($type) {
                     case 'info':
-                        $class = 'alert-info';
+                        $class = 'notifi';
                         break;
                     case 'success':
-                        $class = 'alert-success';
+                        $class = 'correct';
                         break;
                     case 'warn':
                         $class = 'alert-block';
                         break;
                     case 'error':
-                        $class = 'alert-error';
+                        $class = 'error';
                         break;
                 }
 
-                $toReturn .= sprintf('<div class="alert %s">%s</div>', $class, $this->view->escape($message));
+                $toReturn .= sprintf('<div class="%s"><h2>%s</h2></div>', $class, $this->view->escape($message));
             }
         }
 

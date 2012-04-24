@@ -1086,7 +1086,6 @@ tbody tr:hover td {
 	-webkit-border-radius: 5px;
 	background-repeat:repeat-x;
 	text-align:center;
-	display: none;
 }
 .correct, .correct_log {
 	box-shadow: 3px 3px 5px rgba(164,194,0,0.5);
