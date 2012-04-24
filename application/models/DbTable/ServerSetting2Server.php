@@ -6,5 +6,5 @@
  */
 class Application_Model_DbTable_ServerSetting2Server extends Zend_Db_Table_Abstract
 {
-	protected $_table = 'server_setting2server';
+	protected $_name = 'server_setting2server';
 }

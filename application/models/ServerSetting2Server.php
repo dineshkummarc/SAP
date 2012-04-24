@@ -16,6 +16,9 @@ class Application_Model_ServerSetting2Server extends \SAP\Model\AbstractModel
 		$this->_set('setting_id', $settingId);
 	}
 
+	/**
+	 * @return Application_Model_ServerSetting
+	 */
 	public function getSetting()
 	{
 		$serverSetting = $this->_getServerSettingMapper()->find($this->getSettingId());

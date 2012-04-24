@@ -6,12 +6,22 @@
  */
 class Application_Form_ServerEdit extends Application_Form_ServerCreate
 {
+	/**
+	 * @var Application_Model_Server
+	 */
+	protected $_model;
+
 	public function init()
 	{
 		parent::init();
 
 		$this->getElement('server_type_id')->setAttrib('disabled', 'disabled');
-		$this->getElement('submit')->setLabel('Edit server');
+		$submitElement = $this->getElement('submit');
+		$this->removeElement('submit');
+
+		$this->addSubForm(new Application_Form_ServerSettings(array('model' => $this->_model)), 'settings');
+		$submitElement->setLabel('Edit server');
+		$this->addElement($submitElement);
 	}
 
 	public function isValid($data)

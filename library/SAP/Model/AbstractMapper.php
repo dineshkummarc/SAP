@@ -80,7 +80,7 @@ class AbstractMapper
 		$data = $result->current();
 		/** @var $model AbstractModel */
 		$model = new $this->_modelClass();
-		$model->setFromArray($data->toArray());
+		$model->setFromArray($data->toArray(), true);
 		return $model;
 	}
 
@@ -104,7 +104,7 @@ class AbstractMapper
 			/** @var $row \Zend_Db_Table_Row_Abstract */
 			/** @var $tmpModel \SAP\Model\AbstractModel */
 			$tmpModel = new $this->_modelClass;
-			$tmpModel->setFromArray($row->toArray());
+			$tmpModel->setFromArray($row->toArray(), true);
 
 			$toReturn[] = $tmpModel;
 		}

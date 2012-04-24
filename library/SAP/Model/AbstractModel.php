@@ -18,8 +18,13 @@ class AbstractModel
 	 *
 	 * @param array $array
 	 */
-	public function setFromArray(array $array)
+	public function setFromArray(array $array, $fromDatabase = false)
 	{
+		if ($fromDatabase) {
+			$this->_data = $array;
+			return;
+		}
+
 		foreach ($array as $key => $value) {
 			$methodName = $this->_generateSetMethodNameForProperty($key);
 			if (!method_exists($this, $methodName)) {

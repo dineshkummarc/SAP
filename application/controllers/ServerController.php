@@ -27,12 +27,25 @@ class ServerController extends \SAP\Controller\Action
 	public function editAction()
 	{
 		$serverModel = $this->_getServerModelFromRequestOrRedirectToListing();
-		$serverEditForm = new Application_Form_ServerEdit(array('model' => $serverModel, 'serverTypes' => $this->_getAllServerTypesAsArray()));
+		$serverEditForm = new Application_Form_ServerEdit(array(
+			'model' => $serverModel,
+			'serverTypes' => $this->_getAllServerTypesAsArray(),
+		));
 
 		/** @var $request Zend_Controller_Request_Http */
 		$request = $this->getRequest();
 		if ($request->isPost() && $serverEditForm->isValid($request->getPost())) {
-			$serverModel->setFromArray($serverEditForm->getValues());
+			$formValues = $serverEditForm->getValues();
+			$settings = $formValues['settings'];
+			unset($formValues['settings']);
+
+			foreach ($settings as $settingName => $value) {
+				$serverSetting = $serverModel->getServerSettingByName($settingName);
+				$serverSetting->setValue($value);
+				$this->_getServerSetting2ServerMapper()->save($serverSetting);
+			}
+
+			$serverModel->setFromArray($formValues);
 			$this->_getServerMapper()->save($serverModel);
 			$this->getFlashMessenger()->addSuccessMessage(sprintf('successfully updated server %s', $serverModel->getName()));
 			$this->_redirect($this->url('index'), array('exit' => true));
@@ -42,6 +55,19 @@ class ServerController extends \SAP\Controller\Action
 			'server' => $serverModel,
 			'form' => $serverEditForm,
 		));
+	}
+
+	/**
+	 * @return Application_Model_ServerSetting2ServerMapper
+	 */
+	protected function _getServerSetting2ServerMapper()
+	{
+		static $serverSetting2ServerMapper;
+		if ($serverSetting2ServerMapper === null) {
+			$serverSetting2ServerMapper = new Application_Model_ServerSetting2ServerMapper();
+		}
+
+		return $serverSetting2ServerMapper;
 	}
 
 	public function deleteAction()
@@ -71,6 +97,19 @@ class ServerController extends \SAP\Controller\Action
 		}
 
 		return $serverMapper;
+	}
+
+	/**
+	 * @return Application_Model_ServerSettingMapper
+	 */
+	protected function _getServerSettingMapper()
+	{
+		static $serverSettingMapper;
+		if ($serverSettingMapper === null) {
+			$serverSettingMapper = new Application_Model_ServerSettingMapper;
+		}
+
+		return $serverSettingMapper;
 	}
 
 	/**
