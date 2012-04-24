@@ -1,0 +1,25 @@
+<?php
+/**
+ * User: peaceman
+ * Date: 4/24/12
+ * Time: 9:25 PM
+ */
+?>
+<?php foreach ($this->container as $page): ?>
+	<div id="navHeadSub">
+		<h4><?php echo $this->menu()->htmlify($page) ?></h4>
+<!--		<h5>Quisque arcu ante</h5>-->
+	</div>
+	<nav class="navBottom">
+		<?php if (!empty($page->pages)): ?>
+		<ul class="navMenu">
+			<?php foreach ($page->pages as $subPage): ?>
+			<li>
+				<?php echo $this->menu()->htmlify($subPage) ?>
+			</li>
+			<?php endforeach ?>
+		</ul>
+		<?php endif ?>
+	</nav>
+<?php endforeach ?>
+

@@ -7,11 +7,6 @@
  
 class UserController extends \SAP\Controller\Action
 {
-	public function indexAction()
-	{
-
-	}
-
 	public function loginAction()
 	{
 		$auth = $this->_getAuth();
@@ -124,7 +119,7 @@ class UserController extends \SAP\Controller\Action
 		return $userModel;
 	}
 
-	public function listAction()
+	public function indexAction()
 	{
 		$userMapper = $this->_getUserMapper();
 		$users = $userMapper->fetchAll();

@@ -4,7 +4,7 @@
 <head>
 	<?php echo $this->headTitle() ?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<!--<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/framework.css') ?>"/>-->
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/framework.css') ?>"/>
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.min.js') ?>"></script>
@@ -14,21 +14,35 @@
 	<?php echo $this->headScript() ?>
 </head>
 <body>
-<div id="container">
-	<div id="header_top">
-		<div class="header <?php echo $this->placeholder('logo_id') ?>">
+<div id="mainContainer">
+	<header>
+		<div class="header logo">
 			<a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index')) ?>" title="">
 				<img src="<?php echo $this->baseUrl('images/logo.png') ?>" alt=""/>
 			</a>
 		</div>
-		<?php echo $this->placeholder('top_nav') ?>
-
+		<span class="header profileStatus">
+			<?php echo $this->placeholder('top_nav') ?>
+		</span>
+	</header>
+	<div class="clear"></div>
+	<div id="menuContainer">
+		<div id="menuFrame">
+			<div id="menuHead">
+				<span id="headContent">rolf</span>
+			</div>
+			<?php $this->navigation()->menu()->setPartial('partials/menu.phtml') ?>
+			<?php echo $this->navigation()->menu() ?>
+		</div>
 	</div>
+
 	<?php echo $this->placeholder('sidebar') ?>
 
-	<div id="<?php echo $this->placeholder('primary_id') ?>">
+	<div id="rightFrame">
 		<?php echo $this->flashMessenger() ?>
-		<?php echo $this->layout()->content ?>
+		<section id="content">
+			<?php echo $this->layout()->content ?>
+		</section>
 	</div>
 	<div class="clear"></div>
 	<div id="footer">
