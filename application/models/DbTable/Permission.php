@@ -6,5 +6,5 @@
  */
 class Application_Model_DbTable_Permission extends Zend_Db_Table_Abstract
 {
-	protected $_name = 'acl_Permission';
+	protected $_name = 'acl_permission';
 }
