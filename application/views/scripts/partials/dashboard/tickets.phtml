@@ -1,0 +1,10 @@
+<h3>
+	<?= $this->translate('Latest Tickets') ?>
+</h3>
+<?php foreach ($this->tickets as $ticket): ?>
+	<?php /** @var $ticket Application_Model_Ticket */ ?>
+	<blockquote>
+		<?= $this->escape($ticket->getContent()) ?>
+		<small><?= $this->escape($ticket->getAuthor()->getUsername()) ?></small>
+	</blockquote>
+<?php endforeach; ?>

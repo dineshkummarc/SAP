@@ -1,55 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<!DOCTYPE html>
+<html>
 <head>
 	<?php echo $this->headTitle() ?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('css/framework.css') ?>"/>
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.min.js') ?>"></script>
-	<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.nyroModel-1.6.2.pack.js') ?>"></script>
-	<?php echo $this->headMeta() ?>
-	<?php echo $this->headLink() ?>
-	<?php echo $this->headScript() ?>
+	<link href="<?php echo $this->baseUrl('css/bootstrap.css') ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $this->baseUrl('css/style.css') ?>" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo $this->baseUrl('js/flotr2.min.js') ?>"></script>
+	<script type="text/javascript" src="<?php echo $this->baseUrl('js/bootstrap.min.js') ?>"></script>
 </head>
 <body>
-<div id="mainContainer">
-	<header>
-		<div class="header logo">
-			<a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index')) ?>" title="">
-				<img src="<?php echo $this->baseUrl('images/logo.png') ?>" alt=""/>
-			</a>
-		</div>
-		<span class="header profileStatus">
-			<?php echo $this->placeholder('top_nav') ?>
-		</span>
-	</header>
-	<div class="clear"></div>
-	<div id="menuContainer">
-		<div id="menuFrame">
-			<div id="menuHead">
-				<span id="headContent">rolf</span>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" href="index.html">SAP</a>
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					<li>
+						<a href="index.html">Dashboard</a>
+					</li>
+					<li>
+						<a href="streams.html">Streams</a>
+					</li>
+					<li>
+						<a href="#">Media Files</a>
+					</li>
+					<li>
+						<a href="#">Users</a>
+					</li>
+					<li>
+						<a href="#">Settings</a>
+					</li>
+				</ul>
 			</div>
-			<?php $this->navigation()->menu()->setPartial('partials/menu.phtml') ?>
-			<?php echo $this->navigation()->menu() ?>
 		</div>
 	</div>
-
-	<?php echo $this->placeholder('sidebar') ?>
-
-	<div id="rightFrame">
-		<?php echo $this->flashMessenger() ?>
-		<section id="content">
-			<?php echo $this->layout()->content ?>
-		</section>
-	</div>
-	<div class="clear"></div>
-	<div id="footer">
-		<p>Shoutcast Admin Panel | djcrackhome | <a
-			href="http://www.shoutcastadmin.info">http://www.shoutcastadmin.info</a> | <a
-			href="http://www.nagualmedia.de/">Design by Zephon</a> | for the lulz</p>
-	</div>
+</div>
+<div class="container">
+	<?php echo $this->layout()->content ?>
 </div>
 </body>
 </html>

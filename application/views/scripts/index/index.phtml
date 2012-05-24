@@ -1,43 +1,89 @@
-<style>
-    a:link,
-    a:visited
-    {
-        color: #0398CA;
-    }
+<script type="text/javascript">
+	$(function() {
+		(function basic_time(container) {
 
-    span#zf-name
-    {
-        color: #91BE3F;
-    }
+			var
+				d1 = [],
+				d2 = [],
+				start = new Date("2009/01/01 01:00").getTime(),
+				options,
+				graph,
+				i, x, o;
 
-    div#welcome
-    {
-        color: #FFFFFF;
-        background-image: url(http://framework.zend.com/images/bkg_header.jpg);
-        width:  600px;
-        height: 400px;
-        border: 2px solid #444444;
-        overflow: hidden;
-        text-align: center;
-    }
+			for (i = 0; i < 100; i++) {
+				x = start+(i*10*3600*24*36.5);
+				d1.push([x, i+Math.random()*30+Math.sin(i/20+Math.random()*2)*20+Math.sin(i/10+Math.random())*10]);
+				x = start + (i * 3600 * 24 * 36.5);
+				d2.push([x, i+Math.random()*30+Math.sin(i/20+Math.random()*2)*20+Math.sin(i/10+Math.random())*10]);
+			}
 
-    div#more-information
-    {
-        background-image: url(http://framework.zend.com/images/bkg_body-bottom.gif);
-        height: 100%;
-    }
-</style>
-<div id="welcome">
-    <h1>Welcome to the <span id="zf-name">Zend Framework!</span></h1>
+			options = {
+				xaxis : {
+					mode : 'time',
+					labelsAngle : 45,
+					showMinorLabels: true
+				},
+				selection : {
+					mode : 'x'
+				},
+				HtmlText : false,
+				title : 'Listeners'
+			};
 
-    <h3>This is your project's main page</h3>
+			// Draw graph with default options, overwriting with passed options
+			function drawGraph (opts) {
 
-    <div id="more-information">
-        <p><img src="http://framework.zend.com/images/PoweredBy_ZF_4LightBG.png" /></p>
-        <p>
-            Helpful Links: <br />
-            <a href="http://framework.zend.com/">Zend Framework Website</a> |
-            <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
-        </p>
-    </div>
+				// Clone the options, so the 'options' variable always keeps intact.
+				o = Flotr._.extend(Flotr._.clone(options), opts || {});
+
+				// Return a new graph.
+				return Flotr.draw(
+					container,
+					[
+						{ data: d1, label: "stream 1" },
+						{ data: d2, label: "stream 2" }
+					],
+					o
+				);
+			}
+
+			graph = drawGraph();
+
+			Flotr.EventAdapter.observe(container, 'flotr:select', function(area){
+				// Draw selected area
+				graph = drawGraph({
+					xaxis : { min : area.x1, max : area.x2, mode : 'time', labelsAngle : 45 },
+					yaxis : { min : area.y1, max : area.y2 }
+				});
+			});
+
+			// When graph is clicked, draw the graph with default area.
+			Flotr.EventAdapter.observe(container, 'flotr:click', function () { graph = drawGraph(); });
+		})(document.getElementById("placeholder"));
+	});
+</script>
+<div class="row">
+	<div class="span12">
+		<div class="page-header">
+			<h1>Dashboard</h1>
+		</div>
+		<div class="well well-small">
+			<div id="placeholder"></div>
+		</div>
+		<section>
+			<?php echo $this->partial('partials/dashboard/streams.phtml', array('streams' => $this->streams)) ?>
+		</section>
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+		<div class ="row">
+			<div class="span6">
+				<?= $this->partial('partials/dashboard/tickets.phtml', array('tickets' => $this->tickets)) ?>
+			</div>
+			<div class="span6">
+				<h3>Nobody knows</h3>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootbox/bootbox.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+               $('.delete-action').click(function() {
+                   var id = $(this).data('id');
+                   bootbox.confirm("Are you sure?", function(result) {
+                       if (result) {
+                           window.location = 'stream/delete/' + id;
+                       }
+                   });
+               });
+            });
+        </script>
+	</head>
+	<body>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="index.html">TrollPanel</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li>
+								<a href="index.html">Dashboard</a>
+							</li>
+                            <li>
+                                <a href="streams.html">Streams</a>
+                            </li>
+                            <li>
+                                <a href="#">Media Files</a>
+                            </li>
+                            <li>
+                                <a href="#">Users</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings</a>
+                            </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <div class="page-header">
+                        <h1>Streams</h1>
+                    </div>
+                    <h3>Overview</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#<i class="icon-arrow-down" /></th>
+                            <th>Stream Name</th>
+                            <th>Customer</th>
+                            <th>Listeners</th>
+                            <th>Bitrate</th>
+                            <th>Port</th>
+                            <th>Available Space</th>
+                            <th>Uptime</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="/server/details/1">hardcoreradio.nl</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/1">Alfred Hack</a>
+                            </td>
+                            <td>25/123</td>
+                            <td>256kbit/s</td>
+                            <td>12345</td>
+                            <td>256MiB</td>
+                            <td>23 days</td>
+                            <td><i class="icon-ok"></i>Online</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="1" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                                <a href="awesome.pls" class="icon-play"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="/server/details/2">fear.fm</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/2">Christian Baer</a>
+                            </td>
+                            <td>4/12</td>
+                            <td>64kbit/s</td>
+                            <td>8080</td>
+                            <td>64KiB</td>
+                            <td>-</td>
+                            <td><i class="icon-remove"></i>Offline</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="23" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="/server/details/1">hardcoreradio.nl</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/1">Alfred Hack</a>
+                            </td>
+                            <td>25/123</td>
+                            <td>256kbit/s</td>
+                            <td>12345</td>
+                            <td>256MiB</td>
+                            <td>23 days</td>
+                            <td><i class="icon-ok"></i>Online</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="1" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                                <a href="awesome.pls" class="icon-play"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="/server/details/2">fear.fm</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/2">Christian Baer</a>
+                            </td>
+                            <td>4/12</td>
+                            <td>64kbit/s</td>
+                            <td>8080</td>
+                            <td>64KiB</td>
+                            <td>-</td>
+                            <td><i class="icon-remove"></i>Offline</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="23" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="/server/details/1">hardcoreradio.nl</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/1">Alfred Hack</a>
+                            </td>
+                            <td>25/123</td>
+                            <td>256kbit/s</td>
+                            <td>12345</td>
+                            <td>256MiB</td>
+                            <td>23 days</td>
+                            <td><i class="icon-ok"></i>Online</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="1" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                                <a href="awesome.pls" class="icon-play"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="/server/details/2">fear.fm</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/2">Christian Baer</a>
+                            </td>
+                            <td>4/12</td>
+                            <td>64kbit/s</td>
+                            <td>8080</td>
+                            <td>64KiB</td>
+                            <td>-</td>
+                            <td><i class="icon-remove"></i>Offline</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="23" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="/server/details/1">hardcoreradio.nl</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/1">Alfred Hack</a>
+                            </td>
+                            <td>25/123</td>
+                            <td>256kbit/s</td>
+                            <td>12345</td>
+                            <td>256MiB</td>
+                            <td>23 days</td>
+                            <td><i class="icon-ok"></i>Online</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="1" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                                <a href="awesome.pls" class="icon-play"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="/server/details/2">fear.fm</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/2">Christian Baer</a>
+                            </td>
+                            <td>4/12</td>
+                            <td>64kbit/s</td>
+                            <td>8080</td>
+                            <td>64KiB</td>
+                            <td>-</td>
+                            <td><i class="icon-remove"></i>Offline</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="23" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="/server/details/1">hardcoreradio.nl</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/1">Alfred Hack</a>
+                            </td>
+                            <td>25/123</td>
+                            <td>256kbit/s</td>
+                            <td>12345</td>
+                            <td>256MiB</td>
+                            <td>23 days</td>
+                            <td><i class="icon-ok"></i>Online</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="1" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                                <a href="awesome.pls" class="icon-play"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="/server/details/2">fear.fm</a>
+                            </td>
+                            <td>
+                                <a href="/user/details/2">Christian Baer</a>
+                            </td>
+                            <td>4/12</td>
+                            <td>64kbit/s</td>
+                            <td>8080</td>
+                            <td>64KiB</td>
+                            <td>-</td>
+                            <td><i class="icon-remove"></i>Offline</td>
+                            <td>
+                                <a href="stream-edit.html" title="Edit" class="icon-wrench"></a>
+                                <a href="#" data-id="23" title="Delete" class="icon-trash delete-action"></a>
+                                <a href="#" title="Details" class="icon-search"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination pagination-right">
+                        <ul>
+                            <li class="disabled"><a href="#">«</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>
